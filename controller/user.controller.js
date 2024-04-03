@@ -38,15 +38,15 @@ exports.login = async (req, res, next) => {
 
 exports.test = async (req, res, next) => {
     try {
-        const {email, score} = req.body;
-        if(!email || !score) {
+        const {email, score, name} = req.body;
+        if(!email || !score || !name) {
             throw new Error('Parameter are not correct');
         }
         let user = await UserService.checkuser(email);
         if(!user) {
             throw new Error('User does not exist');
         } else {
-            await UserService.inserttest(email, score);
+            await UserService.inserttest(email, score, name);
             res.status(200).json({status:true});
         }
     } catch (error) {

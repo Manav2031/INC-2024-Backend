@@ -18,16 +18,16 @@ static async registerUser(email, password){
         }
     }
 
-    static async inserttest(email, score) {
+    static async inserttest(email, score, name) {
         try {
             let user = await this.checkuser(email);
             if(!user) {
                 throw new Error('User does not exist');
             } else {
                 if(email) {
-                    await TestModel.findOneAndUpdate({email},{score},{upsert:true});
+                    await TestModel.findOneAndUpdate({email},{score,name},{upsert:true});
                 } else {
-                    await TestModel.insertMany({email, score});
+                    await TestModel.insertMany({email, score, name});
                 }
             }
         } catch (err) {
